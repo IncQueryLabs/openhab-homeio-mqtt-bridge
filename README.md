@@ -67,9 +67,15 @@ OpenHAB and HomeIO uses different values and value ranges for the same type, so 
  
 ### Example messages
 out/**A_Lights**/state **ON** -> Turns **on** the **light** in room A
+
 out/**E_lights_Analog**/state **50** -> Turns the **light** to **50%** in room E
+
 in/**E_Door_Detector_1**/state **OPEN** -> Door 1 **opened** in room E 
+
 in/**D_Thermostat_Room_Temperature**/state **15.63826** -> Room temperature in room D is **15.63826 °C**
+
 in/**G_Motion_Detector**/state **OPEN** -> Motion detector in room G detected **motion**
+
 in/**HomeIO_Date**/state **2017-09-01T12:00:00.0000000** -> The simulated time in HomeIO is **2017.09.01. 12:00**
+
 in/**Time_Scale**/state **50** -> The time scale in HomeIO is 50. (**50x faster** than the real time)
