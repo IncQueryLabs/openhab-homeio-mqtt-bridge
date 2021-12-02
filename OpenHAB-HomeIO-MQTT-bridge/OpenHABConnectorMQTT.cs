@@ -12,7 +12,7 @@ namespace HomeIO_MQTT
     public class OpenHABConnectorMQTT : IOpenHABEventPublisher
     {
         private readonly string MqttUrl = "127.0.0.1";
-        private readonly string[] MqttTopics = { "out/#/state" };
+        private readonly string[] MqttTopics = { "out/#" };
 
         private MqttClient client = null;
         private OpenHABTransformer transformer = new OpenHABTransformer();
@@ -67,11 +67,16 @@ namespace HomeIO_MQTT
         //Command received form OpenHAB to HomeIO
         private void MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
-            string state = Encoding.ASCII.GetString(e.Message);
+            if (e.Topic.EndsWith("/state"))
+            {
+                string state = Encoding.ASCII.GetString(e.Message);
 
-            Console.WriteLine(string.Format("{0}\t{1}", e.Topic, state));
+                Console.WriteLine(string.Format("{0}\t{1}", e.Topic, state));
 
-            StateChanged(this, new OpenHABEventArgs(transformer.NameToHomeIOFromTopic(e.Topic), state, transformer));
+                StateChanged(this, new OpenHABEventArgs(transformer.NameToHomeIOFromTopic(e.Topic), state, transformer));
+
+            }
+
         }
 
         internal void GenerateConfigFiles(string openHABConfDir)
